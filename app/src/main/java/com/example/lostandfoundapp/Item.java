@@ -2,6 +2,7 @@ package com.example.lostandfoundapp;
 
 public class Item {
     private int itemid;
+    private double latitude,longitude;
     private String name,type,phone,description, date,location;
 
     public Item(int itemid,String name, String type, String phone, String description, String date, String location) {
@@ -15,8 +16,9 @@ public class Item {
     }
 
 
-
-    public Item(String name, String type, String phone, String description, String date, String location) {
+    public Item( String name, String type, String phone, String description, String date, String location, double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.name = name;
         this.type = type;
         this.phone = phone;
@@ -24,6 +26,8 @@ public class Item {
         this.date = date;
         this.location = location;
     }
+
+
 
     public String getName() {
         return name;
@@ -74,5 +78,21 @@ public class Item {
     }
     public int getItemid() {
         return itemid;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

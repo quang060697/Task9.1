@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
         Button createButton = findViewById(R.id.createButton);
         Button showAllButton = findViewById(R.id.showAllButton);
-
+        Button showMapButton = findViewById(R.id.showMapButton);
         createButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,7 +31,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent2 = new Intent(getApplicationContext(),ShowAllItemsActivity.class);
                 startActivity(intent2);
-                finish();
+            }
+        });
+        showMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent2 = new Intent(getApplicationContext(),MapsActivity.class);
+                startActivity(intent2);
             }
         });
     }

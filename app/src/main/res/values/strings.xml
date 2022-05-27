@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Lost and Found App</string>
+    <string name="app_name">Lost and Found Map App</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

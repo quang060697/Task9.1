@@ -14,11 +14,11 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     public DatabaseHelper(@Nullable Context context) {
-        super(context, "item_db",null, 1);
+        super(context, "item_db",null, 2);
     }
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String CREATE_ITEM_TABLE = "CREATE TABLE ITEMS(ITEMID INTEGER PRIMARY KEY AUTOINCREMENT ,NAME TEXT,TYPE TEXT, PHONE TEXT, DESCRIPTION TEXT,DATE TEXT,LOCATION TEXT)";
+        String CREATE_ITEM_TABLE = "CREATE TABLE ITEMS(ITEMID INTEGER PRIMARY KEY AUTOINCREMENT ,NAME TEXT,TYPE TEXT, PHONE TEXT, DESCRIPTION TEXT,DATE TEXT,LOCATION TEXT,LATITUDE REAL,LONGTITUDE REAL)";
         sqLiteDatabase.execSQL(CREATE_ITEM_TABLE);
 
     }
@@ -42,7 +42,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put("DESCRIPTION",item.getDescription());
         contentValues.put("DATE",item.getDate());
         contentValues.put("LOCATION",item.getLocation());
-
+        contentValues.put("LATITUDE",item.getLatitude());
+        contentValues.put("LONGTITUDE",item.getLongitude());
         long newRow = db.insert("ITEMS",null,contentValues);
         db.close();
         return newRow;
@@ -65,6 +66,33 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 String location = cursor.getString(6);
 
                 Item item = new Item(itemid,name,type,phone,description,date,location);
+                itemList.add(item);
+
+            } while (cursor.moveToNext());
+
+        }
+
+        return itemList;
+    }
+    public List<Item> fetchAllItemsForMap (){
+        List<Item> itemList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        String selectAll = " SELECT * FROM ITEMS";
+        Cursor cursor = db.rawQuery(selectAll, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String name = cursor.getString(1);
+                String type = cursor.getString(2);
+                String phone = cursor.getString(3);
+                String description = cursor.getString(4);
+                String date = cursor.getString(5);
+                String location = cursor.getString(6);
+                double latitude = cursor.getDouble(7);
+                double longitude = cursor.getDouble(8);
+
+                Item item = new Item(name,type,phone,description,date,location,latitude,longitude);
                 itemList.add(item);
 
             } while (cursor.moveToNext());
